@@ -1,6 +1,7 @@
 package org.leetcode.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LeetCodeUtils {
@@ -17,6 +18,23 @@ public class LeetCodeUtils {
         builder.append(' ');
         builder.append("expect=");
         builder.append(expect);
+        System.out.printf(builder.toString());
+        System.out.println();
+    }
+
+    public static void test(String fmt, int[] output, int[] expect) {
+        StringBuilder builder = new StringBuilder();
+        if (Arrays.equals(output, expect)) {
+            builder.append("[PASSED] ");
+        } else {
+            builder.append("[FAILED] ");
+        }
+        builder.append(fmt);
+        builder.append(" output=");
+        builder.append(Arrays.toString(output));
+        builder.append(' ');
+        builder.append("expect=");
+        builder.append(Arrays.toString(expect));
         System.out.printf(builder.toString());
         System.out.println();
     }

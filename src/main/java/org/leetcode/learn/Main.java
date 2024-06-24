@@ -262,12 +262,12 @@ class SequentialPrinter {
     void printNumbers(int remainder, String threadName) {
         synchronized (this) {
             while (currentNumber <= MAX_COUNT) {
-                while (currentNumber % 3 != remainder) { // 确保正确的线程执行
+                while (currentNumber % 3 != remainder) {
                     if (currentNumber >= MAX_COUNT) {
                         break;
                     }
                     try {
-                        wait(); // 不是当前线程的执行顺序，调用wait()
+                        wait();
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         System.out.println("Thread interrupted " + threadName);
@@ -278,7 +278,7 @@ class SequentialPrinter {
                 }
                 currentNumber++;
                 System.out.println(currentNumber);
-                notifyAll(); // 唤醒所有等待的线程
+                notifyAll();
             }
         }
     }
@@ -431,7 +431,7 @@ class Wait_Notify_100 {
     private void printABC(int targetNum) {
         while (true) {
             synchronized (LOCK) {
-                while (num % 3 != targetNum) { //想想这里为什么不能用if代替，想不起来可以看公众号上一篇文章
+                while (num % 3 != targetNum) {
                     if(num >= maxnum){
                         break;
                     }
