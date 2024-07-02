@@ -100,6 +100,22 @@ public class LeetCodeUtils {
         return res;
     }
 
+    public static int[][] make2DIntArray(String input) {
+        List<List<Integer>> list = make2DIntList(input);
+        int rowCnt = list.size();
+        int colCnt = 0;
+        if (!list.isEmpty()) {
+            colCnt = list.get(0).size();
+        }
+        int[][] res = new int[rowCnt][colCnt];
+        for (int i = 0; i < rowCnt; i++) {
+            for (int j = 0; j < colCnt; j++) {
+                res[i][j] = list.get(i).get(j);
+            }
+        }
+        return res;
+    }
+
     public static List<String> makeStrList(String input) {
         List<String> res = new ArrayList<>();
         return res;

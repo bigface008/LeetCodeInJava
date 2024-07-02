@@ -8,25 +8,24 @@ import java.util.Map;
 
 // https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
 class Solution {
-    static String lengthOfLongestSubstring(String s) {
-        if (s.isEmpty()) {
-            return "";
-        }
-        String ans = "";
-        Map<Character, Integer> mp = new HashMap<>();
-        int start = 0, i = 0;
-        for (; i < s.length(); i++) {
-            Character cc = s.charAt(i);
-            if (mp.containsKey(cc)) {
-                int index = mp.get(cc);
-                if (index > start) {
-                    int len = i - start + 1;
-                    if (len > ans.length()) {
-                        ans = s.substring(start, i);
-                    }
-                }
+    public int reverse(int x) {
+        boolean negative = x < 0;
+        x = Math.abs(x);
+        int ans = 0;
+        while (x > 0) {
+            int temp = x % 10;
+            if (negative && ans > (Integer.MAX_VALUE - temp) / 10) {
+                ans = 0;
+                break;
+            } else if (!negative && ans > (Integer.MAX_VALUE - 1 - temp) / 10) {
+                ans = 0;
+                break;
             }
-            mp.put(cc, i);
+            ans = ans * 10 + temp;
+            x = x / 10;
+        }
+        if (negative) {
+            ans = -ans;
         }
         return ans;
     }
@@ -34,9 +33,16 @@ class Solution {
 
 public class Main {
     public static void main(String[] args) {
-        LeetCodeUtils.test("just a test", 12, 15);
-        LeetCodeUtils.test("just another test", "123", "123");
-        LeetCodeUtils.test("just a container test", List.of("1", "12", "123"), List.of("1", "12", "123"));
-//        LeetCodeUtils.test("just a test %s", 12, 15, "123");
+//        test(123, 321);
+//        test(-123, -321);
+//        test(120, 21);
+        test(-10, -1);
+    }
+
+    private static void test(int x, int expect) {
+        Solution solution = new Solution();
+        int output = solution.reverse(x);
+        String desc = String.format("length of longest substring x=%d", x);
+        LeetCodeUtils.test(desc, output, expect);
     }
 }

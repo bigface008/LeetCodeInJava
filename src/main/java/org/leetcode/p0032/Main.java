@@ -4,7 +4,7 @@ import org.leetcode.utils.LeetCodeUtils;
 
 class Solution {
     public int longestValidParentheses(String s) {
-
+        return 0;
     }
 }
 

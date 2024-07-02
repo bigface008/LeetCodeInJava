@@ -41,8 +41,43 @@ public class Main {
         }
     }
 
+    static class Info {
+        int time;
+        int cost;
+
+        Info(int time, int cost) {
+            this.time = time;
+            this.cost = cost;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("{time: %d, cost: %d}", time, cost);
+        }
+    }
+
     public static void main(String[] args) throws InterruptedException {
-        LearnThreadPool.test();
+//        LearnThreadPool.test();
+//        List<Integer> list = new ArrayList<>();
+//        list.add(12);
+//        list.add(13);
+//        list.add(10);
+//        list.add(-5);
+//        list.add(-55);
+//        list.add(1);
+//        Collections.sort(list);
+//        System.out.println(list);
+        List<Info> list = new ArrayList<>();
+        list.add(new Info(12, 13));
+        list.add(new Info(13, 12));
+        System.out.println(list);
+        Collections.sort(list, new Comparator<Info>() {
+            @Override
+            public int compare(Info o1, Info o2) {
+                return o1.cost - o2.cost;
+            }
+        });
+        System.out.println(list);
     }
 
     static void learnArrayList() {
