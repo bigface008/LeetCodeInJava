@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-// 给定一个target和一个均为正数的数组，求能否选择这个数组中的数字相加得到这个target？（可重复使用数字）
 class CanSum {
     static void test() {
         System.out.println(solution(new int[]{2, 5, 5}, 8));
@@ -39,7 +38,6 @@ class CanSum {
     }
 }
 
-// 给定一个target和一个均为正数的数组，求一组这个数组中的数字，使其可以相加得到target？（可重复使用数字）
 class HowSum {
     static void test() {
         System.out.println(solution(new int[]{3, 2}, 7));
@@ -76,7 +74,6 @@ class HowSum {
     }
 }
 
-// 给定一个target和一个均为正数的数组，求一组这个数组中的数字，使其可以相加得到target，且数组长度最短？（可重复使用数字）
 class ShortSum {
     static void test() {
 //        System.out.println(solution(new int[]{2, 3}, 8));
