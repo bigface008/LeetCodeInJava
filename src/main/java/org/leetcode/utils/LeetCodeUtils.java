@@ -116,6 +116,41 @@ public class LeetCodeUtils {
         return res;
     }
 
+    public static List<List<Character>> make2DCharList(String input) {
+        int i = 0;
+        int level = 0;
+        List<List<Character>> res = new ArrayList<>();
+        List<Character> temp = new ArrayList<>();
+        while (i < input.length()) {
+            char c = input.charAt(i);
+            if (c == '[') {
+                level++;
+            } else if (c == ']') {
+                if (level == 2) {
+                    res.add(temp);
+                    temp = new ArrayList<>();
+                }
+                level--;
+            } else {
+                if (level == 2) {
+                    if (c == '"' || c == '\'') {
+                        char nc = input.charAt(i + 1);
+                        if (nc == '"' || nc == '\'') {
+                            temp.add('\0');
+                            i = i + 2;
+                        } else {
+                            temp.add(nc);
+                            i = i + 3;
+                        }
+                        continue;
+                    }
+                }
+            }
+            i++;
+        }
+        return res;
+    }
+
     public static List<String> makeStrList(String input) {
         List<String> res = new ArrayList<>();
         return res;
@@ -141,8 +176,14 @@ public class LeetCodeUtils {
         System.out.println(t);
     }
 
+    private static void testMake2DCharList() {
+        List<List<Character>> l = LeetCodeUtils.make2DCharList("[[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\"W\",\"B\",\"B\",\".\",\"W\",\"W\",\"W\",\"B\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"]]");
+        System.out.println(l);
+    }
+
     public static void main(String[] args) {
 //        testMake2DIntList();
-        testMakeIntList();
+//        testMakeIntList();
+        testMake2DCharList();
     }
 }
