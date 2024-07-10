@@ -116,6 +116,19 @@ public class LeetCodeUtils {
         return res;
     }
 
+    public static char[][] make2DCharArray(String input) {
+        List<List<Character>> list = make2DCharList(input);
+        char[][] res = new char[list.size()][];
+        for (int i = 0; i < list.size(); i++) {
+            int rowLen = list.get(i).size();
+            res[i] = new char[rowLen];
+            for (int j = 0; j < rowLen; j++) {
+                res[i][j] = list.get(i).get(j);
+            }
+        }
+        return res;
+    }
+
     public static List<List<Character>> make2DCharList(String input) {
         int i = 0;
         int level = 0;
@@ -136,7 +149,6 @@ public class LeetCodeUtils {
                     if (c == '"' || c == '\'') {
                         char nc = input.charAt(i + 1);
                         if (nc == '"' || nc == '\'') {
-                            temp.add('\0');
                             i = i + 2;
                         } else {
                             temp.add(nc);
@@ -177,8 +189,10 @@ public class LeetCodeUtils {
     }
 
     private static void testMake2DCharList() {
-        List<List<Character>> l = LeetCodeUtils.make2DCharList("[[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\"W\",\"B\",\"B\",\".\",\"W\",\"W\",\"W\",\"B\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"]]");
-        System.out.println(l);
+        List<List<Character>> list = make2DCharList("[[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\"W\",\"B\",\"B\",\".\",\"W\",\"W\",\"W\",\"B\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"]]");
+        System.out.println(list);
+        char[][] arr = make2DCharArray("[[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"],[\"W\",\"B\",\"B\",\".\",\"W\",\"W\",\"W\",\"B\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"W\",\".\",\".\",\".\",\".\"]]");
+        System.out.println(Arrays.toString(arr));
     }
 
     public static void main(String[] args) {

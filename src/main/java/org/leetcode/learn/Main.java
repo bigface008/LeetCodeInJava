@@ -57,27 +57,14 @@ public class Main {
     }
 
     public static void main(String[] args) throws InterruptedException {
-//        LearnThreadPool.test();
-//        List<Integer> list = new ArrayList<>();
-//        list.add(12);
-//        list.add(13);
-//        list.add(10);
-//        list.add(-5);
-//        list.add(-55);
-//        list.add(1);
-//        Collections.sort(list);
-//        System.out.println(list);
-        List<Info> list = new ArrayList<>();
-        list.add(new Info(12, 13));
-        list.add(new Info(13, 12));
-        System.out.println(list);
-        Collections.sort(list, new Comparator<Info>() {
-            @Override
-            public int compare(Info o1, Info o2) {
-                return o1.cost - o2.cost;
-            }
-        });
-        System.out.println(list);
+//        int[][] a1 = new int[10][];
+//        int[][] a2 = new int[10][];
+//        int[] b = new int[]{1, 2, 3};
+//        a1[0] = b;
+//        a2[1] = b;
+//        b[1] = 13;
+//        System.out.println(Arrays.toString(a1[0]));
+//        System.out.println(Arrays.toString(a2[1]));
     }
 
     static void learnArrayList() {
