@@ -129,6 +129,41 @@ public class LeetCodeUtils {
         return res;
     }
 
+    public static List<List<String>> make2DStringList(String input) {
+        int i = 0;
+        int level = 0;
+        List<List<String>> res = new ArrayList<>();
+        List<String> temp = new ArrayList<>();
+        while (i < input.length()) {
+            char c = input.charAt(i);
+            if (c == '[') {
+                level++;
+            } else if (c == ']') {
+                if (level == 2) {
+                    res.add(temp);
+                    temp = new ArrayList<>();
+                }
+                level--;
+            } else {
+                if (level == 2) {
+                    if (c == '"') {
+                        int j = i + 1;
+                        for (; j < input.length(); j++) {
+                            if (input.charAt(j) == '"') {
+                                break;
+                            }
+                        }
+                        String s = input.substring(i + 1, j);
+                        temp.add(s);
+                        i = j;
+                    }
+                }
+            }
+            i++;
+        }
+        return res;
+    }
+
     public static List<List<Character>> make2DCharList(String input) {
         int i = 0;
         int level = 0;
@@ -195,9 +230,15 @@ public class LeetCodeUtils {
         System.out.println(Arrays.toString(arr));
     }
 
+    private static void testMake2DStringList() {
+        List<List<String>> list = make2DStringList("[[\"John\", \"johnsmith@mail.com\", \"john00@mail.com\"], [\"John\", \"johnnybravo@mail.com\"], [\"John\", \"johnsmith@mail.com\", \"john_newyork@mail.com\"], [\"Mary\", \"mary@mail.com\"]]");
+        System.out.println(list);
+    }
+
     public static void main(String[] args) {
 //        testMake2DIntList();
 //        testMakeIntList();
-        testMake2DCharList();
+//        testMake2DCharList();
+        testMake2DStringList();
     }
 }
