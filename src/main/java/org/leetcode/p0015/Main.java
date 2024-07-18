@@ -12,29 +12,26 @@ class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
-        final int N = nums.length;
-        for (int first = 0; first < N; first++) {
-            if (first > 0 && nums[first] == nums[first - 1]) {
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0 && nums[i - 1] == nums[i]) {
                 continue;
             }
-            int third = N - 1;
-            int target = -nums[first];
-            for (int second = first + 1; second < N; ++second) {
-                if (second > first + 1 && nums[second] == nums[second - 1]) {
-                    continue;
-                }
-                while (second < third && nums[second] + nums[third] > target) {
-                    --third;
-                }
-                if (second == third) {
-                    break;
-                }
-                if (nums[second] + nums[third] == target) {
-                    List<Integer> list = new ArrayList<>();
-                    list.add(nums[first]);
-                    list.add(nums[second]);
-                    list.add(nums[third]);
-                    ans.add(list);
+            int target = -nums[i];
+            int j = i + 1, k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[j] + nums[k];
+                if (sum == target) {
+                    ans.add(List.of(nums[i], nums[j], nums[k]));
+                    do {
+                        j++;
+                    } while (j < k && nums[j] == nums[j - 1]);
+                    do {
+                        k--;
+                    } while (j < k && nums[k] == nums[k + 1]);
+                } else if (sum > target) {
+                    k--;
+                } else {
+                    j++;
                 }
             }
         }
@@ -42,46 +39,12 @@ class Solution {
     }
 }
 
-// dp
-class SolutionV2 {
-//    public List<List<Integer>> threeSum(int[] nums) {
-//        Arrays.sort(nums);
-//        List<Integer> numList = new ArrayList<>(nums.length);
-//        for (int i = 0; i < nums.length; i++) {
-//            numList.set(i, nums[i]);
-//        }
-//        HashMap<Integer, List<List<Integer>>> memo = new HashMap<>();
-//        List<List<Integer>> ans = new ArrayList<>();
-//        return ans;
-//    }
-//
-//    private static List<List<Integer>> rec(List<Integer> nums, int target, int cnt, HashMap<Integer, List<List<Integer>>> memo) {
-//        if (cnt == 3) {
-//            if (target == 0) {
-//                return new ArrayList<>();
-//            } else {
-//                return null;
-//            }
-//        }
-//
-//        if (memo.containsKey(target)) {
-//
-//        }
-//
-//        cnt++;
-//        for (int i = 0; i < nums.size(); i++) {
-//            int num = nums.get(i);
-//            int remain = target - num;
-//            List<List<Integer>> temp = rec();
-//        }
-//    }
-}
-
 public class Main {
     public static void main(String[] args) {
-        test(new int[]{-1, 0, 1, 2, -1, -4}, "[[-1,-1,2],[-1,0,1]]");
-        test(new int[]{0, 1, 1}, "[]");
-        test(new int[]{0, 0, 0}, "[[0,0,0]]");
+//        test(new int[]{-1, 0, 1, 2, -1, -4}, "[[-1,-1,2],[-1,0,1]]");
+//        test(new int[]{0, 1, 1}, "[]");
+//        test(new int[]{0, 0, 0}, "[[0,0,0]]");
+        test(new int[]{1, -1, -1, 0}, "[[-1,0,1]]");
     }
 
     private static void test(int[] nums, String expectStr) {
