@@ -3,6 +3,7 @@ package org.leetcode.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class LeetCodeUtils {
     public static <T> void test(String fmt, T output, T expect) {
@@ -35,6 +36,40 @@ public class LeetCodeUtils {
         builder.append(' ');
         builder.append("expect=");
         builder.append(Arrays.toString(expect));
+        System.out.printf(builder.toString());
+        System.out.println();
+    }
+
+    public static void test(String fmt, Object[] output, Object[] expect) {
+        StringBuilder builder = new StringBuilder();
+        if (Arrays.equals(output, expect)) {
+            builder.append("[PASSED] ");
+        } else {
+            builder.append("[FAILED] ");
+        }
+        builder.append(fmt);
+        builder.append(" output=");
+        builder.append(Arrays.toString(output));
+        builder.append(' ');
+        builder.append("expect=");
+        builder.append(Arrays.toString(expect));
+        System.out.printf(builder.toString());
+        System.out.println();
+    }
+
+    public static void test(String fmt, int[][] output, int[][] expect) {
+        StringBuilder builder = new StringBuilder();
+        if (Arrays.deepEquals(output, expect)) {
+            builder.append("[PASSED] ");
+        } else {
+            builder.append("[FAILED] ");
+        }
+        builder.append(fmt);
+        builder.append(" output=");
+        builder.append(Arrays.deepToString(output));
+        builder.append(' ');
+        builder.append("expect=");
+        builder.append(Arrays.deepToString(expect));
         System.out.printf(builder.toString());
         System.out.println();
     }
