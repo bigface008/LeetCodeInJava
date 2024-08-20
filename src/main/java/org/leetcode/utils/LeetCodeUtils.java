@@ -65,10 +65,10 @@ public class LeetCodeUtils {
             builder.append("[FAILED] ");
         }
         builder.append(fmt);
-        builder.append(" output=");
+        builder.append("\n output=");
         builder.append(Arrays.deepToString(output));
-        builder.append(' ');
-        builder.append("expect=");
+        builder.append('\n');
+        builder.append(" expect=");
         builder.append(Arrays.deepToString(expect));
         System.out.printf(builder.toString());
         System.out.println();
