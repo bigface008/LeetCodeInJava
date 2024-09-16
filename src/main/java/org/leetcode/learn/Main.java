@@ -551,12 +551,6 @@ class VolatileAtomicityDemo {
     }
 }
 
-class LearnThreadPool {
-    static void test() {
-
-    }
-}
-
 class Singleton {
     private volatile static Singleton uniqueInstance;
 

@@ -1,5 +1,6 @@
 package org.leetcode.utils;
 
+import java.io.IOException;
 import java.util.*;
 
 // TODO
@@ -22,6 +23,12 @@ class MergeSort {
     static void merge(int[] nums, int start, int mid, int end, int[] temp) {
         int i = start;
         int j = end;
+    }
+}
+
+class ShellSort {
+    static void sort(int[] nums) {
+        
     }
 }
 
@@ -117,13 +124,18 @@ class InsertSort {
     }
 }
 
+
+
 public class Sorter {
     public static void main(String[] args) {
-        int[] a = new int[]{12, 451, -2, -12, 99, -1, 1, 22, 5, 65};
+//        int[] a = new int[]{12, 451, -2, -12, 99, -1, 1, 22, 5, 65};
 //        InsertSort.sort(a);
 //        QuickSort.sort(a);
-        HeapSort.sort(a);
-        System.out.println(Arrays.toString(a));
+//        HeapSort.sort(a);
+//        System.out.println(Arrays.toString(a));
+//        int[] b = new int[]{68, 1, 2, 3, 4, 5, 6};
+//        QuickSort.partition(b, 0, b.length - 1);
+//        System.out.println(Arrays.toString(b));
 
 //        Arrays.sort(a);
 //
