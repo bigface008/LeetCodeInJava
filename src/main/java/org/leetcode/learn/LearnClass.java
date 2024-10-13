@@ -231,47 +231,61 @@ class Student {
     }
 }
 
+interface JustWe {
+
+}
+
+abstract class ABS {
+
+}
 
 public class LearnClass {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
-        ArrayList<Student> arr = new ArrayList<>();
-        arr.add(new Student("王老五", 22));
-        arr.add(new Student("老赵", 24));
-        arr.add(new Student("老白", 19));
-        arr.add(new Student("老李", 25));
-        System.out.println(arr.stream().filter(student -> student.age > 20).map(student -> student.name).limit(2).toList());
+        ABS abs = new ABS() {
+        };
+        System.out.println(abs);
 
-        List<List<String>> list2D = Arrays.asList(
-                Arrays.asList("Reflection", "Collection", "Stream"),
-                Arrays.asList("Structure", "State", "Flow"),
-                Arrays.asList("Sorting", "Mapping", "Reduction", "Stream")
-        );
-
-        List<String> tmp = new ArrayList<>();
-        List<String> res = list2D.stream()
-                .flatMap(List::stream)
-                .distinct()
-                .sorted()
-                .peek(tmp::add)
-                .toList();
-        System.out.println(res);
-        System.out.println(tmp);
-
-        String s = s1 + s2;
-        System.out.println(s);
-
-        ClassLoader classLoader = LearnClass.class.getClassLoader();
-        StringBuilder split = new StringBuilder("|--");
-        boolean needContinue = true;
-        while (needContinue) {
-            System.out.println(split.toString() + classLoader);
-            if (classLoader == null) {
-                needContinue = false;
-            } else {
-                classLoader = classLoader.getParent();
-                split.insert(0, '\t');
-            }
-        }
+        JustWe we = new JustWe() {
+        };
+        System.out.println(we);
+//        ArrayList<Student> arr = new ArrayList<>();
+//        arr.add(new Student("王老五", 22));
+//        arr.add(new Student("老赵", 24));
+//        arr.add(new Student("老白", 19));
+//        arr.add(new Student("老李", 25));
+//        System.out.println(arr.stream().filter(student -> student.age > 20).map(student -> student.name).limit(2).toList());
+//
+//        List<List<String>> list2D = Arrays.asList(
+//                Arrays.asList("Reflection", "Collection", "Stream"),
+//                Arrays.asList("Structure", "State", "Flow"),
+//                Arrays.asList("Sorting", "Mapping", "Reduction", "Stream")
+//        );
+//
+//        List<String> tmp = new ArrayList<>();
+//        List<String> res = list2D.stream()
+//                .flatMap(List::stream)
+//                .distinct()
+//                .sorted()
+//                .peek(tmp::add)
+//                .toList();
+//        System.out.println(res);
+//        System.out.println(tmp);
+//
+//        String s = s1 + s2;
+//        System.out.println(s);
+//
+//        ClassLoader classLoader = LearnClass.class.getClassLoader();
+//        StringBuilder split = new StringBuilder("|--");
+//        boolean needContinue = true;
+//        while (needContinue) {
+//            System.out.println(split.toString() + classLoader);
+//            if (classLoader == null) {
+//                needContinue = false;
+//            } else {
+//                classLoader = classLoader.getParent();
+//                split.insert(0, '\t');
+//            }
+//        }
     }
 
     static String s1;

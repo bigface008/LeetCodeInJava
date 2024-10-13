@@ -319,30 +319,6 @@ class SequentialPrinter {
 }
 
 
-class AtomicIntegerExample {
-    private static final int MAX = 100;
-    private AtomicInteger counter = new AtomicInteger(1);
-
-    public void printNumbers(int result) {
-        while (counter.get() <= MAX) {
-            if (counter.get() % 3 == result) {
-                System.out.println("Thread " + (result + 1) + ": " + counter.getAndIncrement());
-            }
-        }
-    }
-
-    static void test() {
-        AtomicIntegerExample example = new AtomicIntegerExample();
-        Thread t1 = new Thread(() -> example.printNumbers(0));
-        Thread t2 = new Thread(() -> example.printNumbers(1));
-        Thread t3 = new Thread(() -> example.printNumbers(2));
-
-        t1.start();
-        t2.start();
-        t3.start();
-    }
-}
-
 class MyPrinter {
     private static final int MAX_COUNT = 100;
     private int count;
@@ -501,30 +477,7 @@ class BPlusTree<K extends Comparable<K>, V> {
     }
 }
 
-class LRUCache<T> {
-    private final Map<String, T> cache;
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    LRUCache(int capacity) {
-        this.cache = new LinkedHashMap<>(capacity, 0.75f, true) {
-            @Override
-            protected boolean removeEldestEntry(Map.Entry<String, T> eldest) {
-                return size() > capacity;
-            }
-        };
-    }
-
-    public T get(String key) {
-        lock.readLock().lock();
-        try {
-            return cache.get(key);
-        } finally {
-            lock.readLock().unlock();
-        }
-    }
-
-
-}
 
 class VolatileAtomicityDemo {
 //    public volatile static int inc = 0;
