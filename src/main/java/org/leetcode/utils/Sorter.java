@@ -28,20 +28,20 @@ class MergeSort {
 
 class ShellSort {
     static void sort(int[] nums) {
-        
+
     }
 }
 
 class HeapSort {
-    static void sort(int[] nums) {
-        for (int i = (nums.length - 1) / 2; i >= 0; i--) {
-            adjustHeap(nums, i, nums.length);
+    static void sort(int[] arr) {
+        for (int i = (arr.length - 1) / 2; i >= 0; i--) {
+            heapify(arr, i, arr.length);
         }
-        for (int i = nums.length - 1; i > 0; i--) {
-            int temp = nums[0];
-            nums[0] = nums[i];
-            nums[i] = temp;
-            adjustHeap(nums, 0, i);
+        for (int i = arr.length - 1; i > 0; i--) {
+            int temp = arr[i];
+            arr[i] = arr[0];
+            arr[0] = temp;
+            heapify(arr, 0, i);
         }
     }
 
@@ -49,26 +49,27 @@ class HeapSort {
      * 调整堆
      * 这个函数的真正效果是，在parent的左右子树已经是堆/叶子节点/空的前提下，下移parent的值，让parent以下的所有点都小于parent
      * 那么为何这个前提一定能够确保？因为我们是从最后一个非叶子节点往前遍历的！
-     * @param nums   待排序列
+     *
+     * @param arr    待排序列
      * @param parent 父节点
      * @param length 待排序列尾长度
      */
-    static void adjustHeap(int[] nums, int parent, int length) {
-        int temp = nums[parent];
+    static void heapify(int[] arr, int parent, int length) {
+        int temp = arr[parent];
         int lChild = 2 * parent + 1;
         while (lChild < length) {
-            int rChild = 2 * lChild + 1;
-            if (rChild < length && nums[rChild] > nums[lChild]) {
+            int rChild = lChild + 1;
+            if (rChild < length && arr[lChild] < arr[rChild]) {
                 lChild = rChild;
             }
-            if (temp >= nums[lChild]) {
+            if (temp >= arr[lChild]) {
                 break;
             }
-            nums[parent] = nums[lChild];
+            arr[parent] = arr[lChild];
             parent = lChild;
             lChild = 2 * lChild + 1;
         }
-        nums[parent] = temp;
+        arr[parent] = temp;
     }
 }
 
@@ -125,9 +126,20 @@ class InsertSort {
 }
 
 
-
 public class Sorter {
+    private static void testSort(int[] arr) {
+        String before = Arrays.toString(arr);
+        HeapSort.sort(arr);
+        String after = Arrays.toString(arr);
+        System.out.printf("before=%s after=%s\n", before, after);
+    }
+
     public static void main(String[] args) {
+//        int[] a = new int[]{12, 451, -2, -12, 99, -1, 1, 22, 5, 65};
+//        int[] a = new int[]{12, 451, -2, -12, 99, -1, 1, 22, 5, 65};
+//        int[] a = new int[]{12, 451, -2, -12, 99, -1, 1, 22, 5, 65};
+//        int[] a = new int[]{12, 451, -2, -12, 99, -1, 1, 22, 5, 65};
+//        int[] a = new int[]{12, 451, -2, -12, 99, -1, 1, 22, 5, 65};
 //        int[] a = new int[]{12, 451, -2, -12, 99, -1, 1, 22, 5, 65};
 //        InsertSort.sort(a);
 //        QuickSort.sort(a);
@@ -136,6 +148,7 @@ public class Sorter {
 //        int[] b = new int[]{68, 1, 2, 3, 4, 5, 6};
 //        QuickSort.partition(b, 0, b.length - 1);
 //        System.out.println(Arrays.toString(b));
+        testSort(new int[]{12, 451, -2, -12, 99, -1, 1, 22, 5, 65});
 
 //        Arrays.sort(a);
 //

@@ -38,13 +38,18 @@ class Solution {
 
 public class Main {
     public static void main(String[] args) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        pq.offer(12);
-        pq.offer(5);
-        pq.offer(-2);
-        pq.offer(99);
-        pq.offer(-23);
-        System.out.println(pq);
+//        PriorityQueue<Integer> pq = new PriorityQueue<>();
+//        pq.offer(12);
+//        pq.offer(5);
+//        pq.offer(-2);
+//        pq.offer(99);
+//        pq.offer(-23);
+//        System.out.println(pq);
+//        test3(new int[]{1, 2, 1, 1}, new int[]{5, 0, 3, 4});
+//        test3(new int[]{1, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1}, new int[]{30, 20, 17, 18, 16, 14, 16, 18, 17, 20, 30});
+        test3(new int[]{1, 2, 1, 1});
+        test3(new int[]{1, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1});
+        test3(new int[]{1, 2, 1, 2, 2, 1, 1});
     }
 
     private static void test(int n, int expect) {
@@ -53,7 +58,60 @@ public class Main {
         LeetCodeUtils.test(desc, output, expect);
     }
 
-    static int[] solution(int[] nums) {
+    private static void test2(int[] nums, int[] expect) {
+        int[] output = solution1(nums);
+        String desc = String.format("nums=%s", Arrays.toString(nums));
+        LeetCodeUtils.test(desc, output, expect);
+    }
+
+    private static void test3(int[] nums) {
+        int[] output1 = solution1(nums);
+        int[] output2 = solution2(nums);
+        if (Arrays.equals(output1, output2)) {
+            System.out.print("[passed]");
+        } else {
+            System.out.print("[failed]");
+        }
+        System.out.printf(" nums=%s output1=%s output=%s\n", Arrays.toString(nums), Arrays.toString(output1), Arrays.toString(output2));
+    }
+
+    static int[] solution2(int[] nums) {
+        final int N = nums.length;
+        int[] ans = new int[N];
+        Map<Integer, Queue<Integer>> mp = new HashMap<>();
+        Map<Integer, Integer> sumMap = new HashMap<>();
+        for (int i = 0; i < N; i++) {
+            int x = nums[i];
+            Queue<Integer> indices = mp.get(x);
+            if (indices == null) {
+                indices = new LinkedList<>();
+                indices.add(i);
+                mp.put(x, indices);
+                sumMap.put(x, 0);
+            } else {
+                indices.add(i);
+                int sum = sumMap.get(x);
+                sumMap.put(x, sum + i - indices.peek());
+            }
+        }
+        mp.forEach((x, indices) -> {
+            int idx = indices.poll();
+            int sum = sumMap.get(x);
+            int sumedIdxCnt = 1;
+            final int indincesCnt = indices.size();
+            ans[idx] = sum;
+            while (!indices.isEmpty()) {
+                int currIdx = indices.poll();
+                System.out.printf("sumedIdxCnt=%d indincesCnt=%d ans[%d] = ans[%d] + %d * %d\n", sumedIdxCnt, indincesCnt, currIdx, idx, (sumedIdxCnt - 1) - (indincesCnt - sumedIdxCnt), currIdx - idx);
+                ans[currIdx] = ans[idx] + ((sumedIdxCnt - 1) - (indincesCnt - sumedIdxCnt)) * (currIdx - idx);
+                idx = currIdx;
+                sumedIdxCnt++;
+            }
+        });
+        return ans;
+    }
+
+    static int[] solution1(int[] nums) {
         final int N = nums.length;
         int[] ans = new int[N];
         Map<Integer, List<Integer>> mp = new HashMap<>();
@@ -68,7 +126,9 @@ public class Main {
                 }
                 indices.add(i);
             } else {
-                mp.put(x, new LinkedList<>());
+                indices = new LinkedList<>();
+                indices.add(i);
+                mp.put(x, indices);
             }
         }
         return ans;

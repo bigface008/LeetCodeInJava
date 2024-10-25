@@ -9,11 +9,53 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+class Printer {
+    static final int MAX_VAL = 300;
+    int i = 0;
+    ReentrantLock lock = new ReentrantLock();
+
+    void print(int offset) {
+        while (true) {
+            lock.lock();
+            try {
+                if (i > MAX_VAL) {
+                    break;
+                }
+                if (i % 3 == offset) {
+                    System.out.printf("thread %d %d\n", offset, i);
+                    i++;
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    static void run() {
+        var p = new Printer();
+        var t1 = new Thread(() -> p.print(1));
+        var t2 = new Thread(() -> p.print(2));
+        var t3 = new Thread(() -> p.print(3));
+        t1.start();
+        t2.start();
+        t3.start();
+        try {
+            t1.join();
+            t2.join();
+            t3.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
 public class LearnAsync {
     public static void main(String[] args) throws InterruptedException {
-        final Semaphore semaphore = new Semaphore(5);
-        semaphore.acquire();
-        semaphore.release();
+        AsyncPrinter.run();
+//        Printer.run();
+//        final Semaphore semaphore = new Semaphore(5);
+//        semaphore.acquire();
+//        semaphore.release();
 //        LearnCountDown.run();
 //        LearnThreadLocal obj = new LearnThreadLocal();
 //        for (int i = 0; i < 10; i++) {
