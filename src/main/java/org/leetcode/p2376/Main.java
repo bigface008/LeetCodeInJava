@@ -1,4 +1,4 @@
-package org.leetcode.p02376;
+package org.leetcode.p2376;
 
 import org.leetcode.utils.LeetCodeUtils;
 
