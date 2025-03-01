@@ -1166,7 +1166,80 @@ public class ThreadTest {
         }
     }
 
-    public static void main(String[] args) {
+    public class DeadLockTest2 {
+        private static Object resA = new Object();
+        private static Object resB = new Object();
 
+        public static void main(String[] args) {
+            Thread thread = new Thread(() -> {
+                synchronized (resA) {
+                    System.out.println(Thread.currentThread() + " get resA");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread() + " wait resB");
+                    synchronized (resB) {
+                        System.out.println(Thread.currentThread() + " get resB");
+                    }
+                }
+            });
+            Thread threadB = new Thread(() -> {
+                synchronized (resB) {
+                    System.out.println(Thread.currentThread() + " get resB");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread() + " wait get resA");
+                    synchronized (resA) {
+                        System.out.println(Thread.currentThread() + " get resA");
+                    }
+                }
+            });
+        }
+    }
+
+    public static class ThreadLocalTest {
+        static void print(String str) {
+            System.out.println(str + ":" + localVar.get());
+            localVar.remove();
+        }
+
+        static ThreadLocal<String> localVar = new ThreadLocal<>();
+
+        public static void main(String[] args) {
+            Thread t1 = new Thread(() -> {
+                localVar.set("T1");
+                print("t1");
+                System.out.println("after " + localVar.get());
+            });
+            Thread t2 = new Thread(() -> {
+                localVar.set("T2");
+                print("t2");
+                System.out.println("after " + localVar.get());
+            });
+            t1.start();
+            t2.start();
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            Thread threadOne = new Thread(new Runnable() {
+                public void run() {
+                    while (!Thread.interrupted()) {
+                    }
+                    System.out.println("thread one isInterrupted:" + Thread.currentThread().isInterrupted());
+                }
+            });
+            threadOne.start();
+            threadOne.interrupt();
+            threadOne.join();
+        } catch (RuntimeException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

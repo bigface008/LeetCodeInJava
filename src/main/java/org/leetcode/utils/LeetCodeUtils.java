@@ -1,5 +1,7 @@
 package org.leetcode.utils;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -135,15 +137,29 @@ public class LeetCodeUtils {
         return res;
     }
 
-    public static int[][] make2DIntArray(String input) {
+    public static Object[][] make2DObjectArray(String input) {
         List<List<Integer>> list = make2DIntList(input);
         int rowCnt = list.size();
         int colCnt = 0;
         if (!list.isEmpty()) {
             colCnt = list.get(0).size();
         }
-        int[][] res = new int[rowCnt][colCnt];
+        Object[][] res = new Object[rowCnt][colCnt];
         for (int i = 0; i < rowCnt; i++) {
+            for (int j = 0; j < colCnt; j++) {
+                res[i][j] = list.get(i).get(j);
+            }
+        }
+        return res;
+    }
+
+    public static int[][] make2DIntArray(String input) {
+        List<List<Integer>> list = make2DIntList(input);
+        final int rowCnt = list.size();
+        int[][] res = new int[rowCnt][];
+        for (int i = 0; i < rowCnt; i++) {
+            final int colCnt = list.get(i).size();
+            res[i] = new int[colCnt];
             for (int j = 0; j < colCnt; j++) {
                 res[i][j] = list.get(i).get(j);
             }
@@ -268,6 +284,35 @@ public class LeetCodeUtils {
     private static void testMake2DStringList() {
         List<List<String>> list = make2DStringList("[[\"John\", \"johnsmith@mail.com\", \"john00@mail.com\"], [\"John\", \"johnnybravo@mail.com\"], [\"John\", \"johnsmith@mail.com\", \"john_newyork@mail.com\"], [\"Mary\", \"mary@mail.com\"]]");
         System.out.println(list);
+    }
+
+    public static List<Object> invokeMethods(Object target, String[] methodNames, Object[][] paramsArr) {
+        int N = paramsArr.length;
+        if (methodNames.length != N) {
+            throw new InvalidInputException("different numbers of methods and params");
+        }
+        List<Object> res = new ArrayList<>();
+        try {
+            for (int i = 0; i < N; i++) {
+                String methodName = methodNames[i];
+                Object[] params = paramsArr[i];
+                Object temp = invokeMethod(target, methodName, params);
+                res.add(temp);
+            }
+        } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    private static Object invokeMethod(Object target, String methodName, Object... params) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> clazz = target.getClass();
+        Class<?>[] paramTypes = new Class[params.length];
+        for (int i = 0; i < params.length; i++) {
+            paramTypes[i] = params[i].getClass();
+        }
+        Method method = clazz.getMethod(methodName, paramTypes);
+        return method.invoke(target, params);
     }
 
     public static void main(String[] args) {
